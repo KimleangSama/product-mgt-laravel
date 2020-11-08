@@ -1,7 +1,10 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FileUploadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +22,10 @@ Route::get('/', function () {
 });
 
 Route::resource('categories', CategoryController::class);
+
+Route::resource('products', ProductController::class);
+
+Route::get('/categories/{id}/subcategories', function($id) {
+    $subcategories = Category::find($id)->subcategories;
+    return response()->json($subcategories);
+});

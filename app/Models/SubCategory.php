@@ -2,21 +2,18 @@
 
 namespace App\Models;
 
-use App\Models\SubCategory;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Category extends Model
+class SubCategory extends Model
 {
     use HasFactory;
 
-    protected $table = 'categories';
+    protected $table = 'subcategories';
 
     protected $fillable = [
         'name'
     ];
 
-    public function subcategories() {
-        return $this->hasMany(SubCategory::class);
-    }
 }
