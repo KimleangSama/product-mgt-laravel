@@ -6,39 +6,54 @@
     <div class="form-group">
         <label for="exampleInputEmail1">Name</label>
         <input name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        <small id="emailHelp" style="color: red">ss</small>
+        @error('name')
+         <small id="emailHelp" style="color: red">Please input name.</small>
+        @enderror
     </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Description</label>
         <input name="description" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        <small id="emailHelp" style="color: red">ss</small>
+        @error('description')
+            <small id="emailHelp" style="color: red">Please input description.</small>
+        @enderror
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Price</label>
         <input name="price" type="number" class="form-control">
-        <small id="emailHelp" style="color: red">ss</small>
+        @error('price')
+            <small id="emailHelp" style="color: red">Please input price.</small>
+        @enderror
     </div>
 
     <div class="form-group">
         <select id="category" name="categories" class="custom-select">
-            <option selected>Category</option>
+            <option value="" selected>Category</option>
             @foreach ($categories as $category)
                 <option value="{{$category->id}}">
                     {{$category->name}}
                 </option>
             @endforeach
         </select>
+        @error('categories')
+            <small id="emailHelp" style="color: red">Please input category.</small>
+        @enderror
     </div>
 
     <div class="form-group">
         <select id="subcategory" name="subcategories" class="custom-select">
-            <option selected>Sub Category</option>
+            <option value="" selected>Sub Category</option>
         </select>
+        @error('subcategories')
+            <small id="emailHelp" style="color: red">Please input sub category.</small>
+        @enderror
     </div>
 
     <div class="custom-file">
         <input name="image" type="file" class="custom-file-input" id="image" accept="image/x-png,image/gif,image/jpeg,image/jpg" >
         <label class="custom-file-label" for="customFile">Choose file</label>
+        @error('image')
+            <small id="emailHelp" style="color: red">Please input file.</small>
+        @enderror
     </div>
 
     <img width="50%" id="preview" />

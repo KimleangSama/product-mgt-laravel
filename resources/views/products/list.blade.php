@@ -7,7 +7,7 @@
         <th scope="col">Price</th>
         <th scope="col">Category</th>
         <th scope="col">Sub Category</th>
-        <th scope="col">Image</th>
+        {{-- <th scope="col">Image</th> --}}
       </tr>
     </thead>
     <tbody>
@@ -19,9 +19,9 @@
             <td>{{$product->price}}</td>
             <td>{{$product->category->name}}</td>
             <td>{{$product->subcategory->name}}</td>
-            <td>
+            {{-- <td>
                 <img src="{{ url('storage/products/'.$product->image) }}" alt="">
-            </td>
+            </td> --}}
         </tr>
       @endforeach
     </tbody>

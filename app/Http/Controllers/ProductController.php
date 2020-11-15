@@ -9,25 +9,15 @@ use Illuminate\Routing\Controller;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $limit = 15;
-        $products = Product::latest()->paginate($limit);
+        $limit = 10;
+        $products = Product::paginate($limit);
         return view('products.index', [
             'products' => $products
         ])->with('i', (request()->input('page', 1) - 1) * $limit);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $categories = Category::all();
@@ -36,14 +26,16 @@ class ProductController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'categories' => 'required',
+            'subcategories' => 'required',
+            'image' => 'required'
+        ]);
         $product = new Product();
         $product->name = ''.$request->name;
         $product->description = ''.$request->description;
@@ -56,6 +48,8 @@ class ProductController extends Controller
             $product->image = ''.$originFileName;
         }
         $product->save();
+        return redirect()->route('products.index')
+            ->with('success', 'Product created successfully.');
     }
 
     /**
