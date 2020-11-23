@@ -15,16 +15,11 @@ class Product extends Model
         'name',
         'description',
         'price',
-        'iamge',
+        'image',
         'category_id',
-        'subcategory_id'
     ];
 
     public function category() {
         return $this->belongsTo(Category::class);
-    }
-
-    public function subcategory() {
-        return $this->belongsTo(SubCategory::class);
     }
 }

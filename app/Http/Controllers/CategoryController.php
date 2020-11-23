@@ -7,39 +7,25 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $limit = 5;
         $categories = Category::paginate($limit);
-        return view('categories.index', compact('categories'))
-            ->with('i', (request()->input('page', 1) - 1) * $limit);
+        return view('categories.index', [
+            'categories' => $categories
+        ])->with('i', (request()->input('page', 1) - 1) * $limit);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('categories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'description' => 'required'
         ]);
         Category::create($request->all());
         return redirect()->route('categories.index')

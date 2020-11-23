@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $limit = 10;
+        $limit = 5;
         $products = Product::paginate($limit);
         return view('products.index', [
             'products' => $products
@@ -33,7 +33,6 @@ class ProductController extends Controller
             'description' => 'required',
             'price' => 'required',
             'categories' => 'required',
-            'subcategories' => 'required',
             'image' => 'required'
         ]);
         $product = new Product();
@@ -41,7 +40,6 @@ class ProductController extends Controller
         $product->description = ''.$request->description;
         $product->price = $request->price;
         $product->category_id = $request->categories;
-        $product->subcategory_id = $request->subcategories;
         if ($request->image) {
             $originFileName = $request->image->getClientOriginalName();
             $request->image->storeAs('public/products', $originFileName);
@@ -92,8 +90,10 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->delete();
+        return redirect()->route('products.index');
     }
 }
